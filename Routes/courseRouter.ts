@@ -29,8 +29,21 @@ courseRouter.get('/:id',async(req,res)=>{
 courseRouter.put('/:id',async(req,res)=>{
     const id = req.params.id;
     try{
-        const course = await CourseModel.findById({_id:id})
-        await course?.updateOne()
+        const course = await CourseModel.findByIdAndUpdate({_id:id},req.body)
+        res.send(course);
+    }
+    catch(e){
+        res.send("error")
+        console.log("Error:",e);
+    }
+
+})
+
+courseRouter.delete('/:id',async(req,res)=>{
+    const id = req.params.id;
+    try{
+        const course = await CourseModel.findByIdAndDelete({_id:id})
+        res.send(course);
     }
     catch(e){
         res.send("error")

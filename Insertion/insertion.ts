@@ -15,9 +15,10 @@ export const readCSVFile  = async <T>(filepath:string): Promise<T[]> => {
 }
 
 export const insertCourses = async(data: Course[]) => {
+    await CourseModel.deleteMany();
     const courses: Course[] = await CourseModel.find();
     console.log(courses)
-    // await CourseModel.insertMany(data);
+    await CourseModel.insertMany(data);
     console.log("data Inserted succesfully");
 }
 
@@ -42,7 +43,7 @@ export const insertPrerequsite = async(data:any) => {
                             courseId:cid._id,
                             prerequisiteIds:[pid._id]
                         }
-                        // const result = await PrerequisiteModel.insertMany([doc]);
+                        const result = await PrerequisiteModel.insertMany([doc]);
                          console.log(`Inserted prerequisite: ${result}`);
                     }
                     else{
